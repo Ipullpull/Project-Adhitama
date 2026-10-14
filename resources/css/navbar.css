@@ -1,0 +1,209 @@
+/* Fixed one-page navigation and right-side menu panel. */
+.navbar {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 1000;
+    width: 100%;
+    height: 78px;
+    background: linear-gradient(180deg, rgba(2, 15, 28, .72), rgba(2, 15, 28, .08));
+    transition: background-color .3s ease, box-shadow .3s ease;
+}
+
+.navbar.scrolled {
+    background: rgba(2, 15, 28, .94);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, .22);
+}
+
+.navbar-inner {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 38px;
+}
+
+.brand-logo {
+    position: absolute;
+    left: calc(50% + (100vw - 100%) / 2);
+    top: 50%;
+    z-index: 1002;
+    display: inline-block;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-family: 'Montserrat', 'Arial Black', sans-serif;
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color .25s ease;
+}
+
+.brand-logo:hover,
+.brand-logo:focus-visible {
+    color: #ff252f;
+}
+
+.navbar-toggle {
+    position: relative;
+    z-index: 1003;
+    display: block;
+    width: 48px;
+    height: 48px;
+    padding: 9px;
+    border: 0;
+    border-radius: 5px;
+    background: transparent;
+    cursor: pointer;
+    touch-action: manipulation;
+}
+
+.navbar-toggle span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    margin: 5px 0;
+    border-radius: 2px;
+    background: #fff;
+    transition: background-color .2s ease, transform .2s ease, opacity .2s ease;
+}
+
+.navbar-toggle:hover span,
+.navbar-toggle:focus-visible span {
+    background: #e21d2a;
+}
+
+.navbar-toggle[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.navbar-toggle[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+}
+
+.navbar-toggle[aria-expanded="true"] span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+.navbar-scrim {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    border: 0;
+    background: rgba(0, 0, 0, .58);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .3s ease, visibility .3s ease;
+}
+
+.navbar-menu {
+    position: fixed;
+    inset: 0 0 0 auto;
+    z-index: 1001;
+    width: min(42vw, 760px);
+    min-width: 420px;
+    height: 100vh;
+    height: 100dvh;
+    overflow-y: auto;
+    padding: 100px clamp(32px, 5vw, 72px) 42px;
+    background: #061321;
+    box-shadow: -18px 0 50px rgba(0, 0, 0, .24);
+    transform: translateX(102%);
+    visibility: hidden;
+    transition: transform .35s cubic-bezier(.22,.61,.36,1), visibility .35s;
+}
+
+.navbar.menu-open .navbar-scrim {
+    opacity: 1;
+    visibility: visible;
+}
+
+.navbar.menu-open .navbar-menu {
+    transform: translateX(0);
+    visibility: visible;
+}
+
+.onepage-menu-inner {
+    display: grid;
+    width: 100%;
+    max-width: 420px;
+    margin-left: auto;
+}
+
+.onepage-menu-link {
+    display: block;
+    min-height: 46px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, .14);
+    color: #fff;
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-size: clamp(16px, 1.35vw, 19px);
+    font-weight: 700;
+    line-height: 1.25;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color .2s ease, padding-left .2s ease;
+}
+
+.onepage-menu-link:hover,
+.onepage-menu-link:focus-visible {
+    padding-left: 8px;
+    color: #e21d2a;
+}
+
+.navbar :focus-visible {
+    outline: 2px solid #e21d2a;
+    outline-offset: 4px;
+}
+
+@media (max-width: 1024px) {
+    .navbar-menu {
+        width: 56vw;
+        min-width: 0;
+        padding-right: clamp(28px, 6vw, 64px);
+        padding-left: clamp(28px, 6vw, 64px);
+    }
+}
+
+@media (max-width: 600px) {
+    .navbar {
+        height: 72px;
+    }
+
+    .navbar-inner {
+        padding: 0 14px;
+    }
+
+    .brand-logo {
+        font-size: 22px;
+    }
+
+    .navbar-toggle {
+        width: 48px;
+        height: 48px;
+    }
+
+    .navbar-menu {
+        width: min(88vw, 420px);
+        padding: 86px 26px 28px;
+    }
+
+    .onepage-menu-link {
+        min-height: 44px;
+        padding: 9px 0;
+        font-size: 16px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .navbar,
+    .navbar-scrim,
+    .navbar-menu,
+    .navbar-toggle span,
+    .onepage-menu-link {
+        transition-duration: .01ms;
+    }
+}
